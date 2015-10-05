@@ -18,36 +18,29 @@ if (!isset($_SESSION['maclef']) || $_SESSION['maclef'] != session_id()) {
     header("Location: ./");
 }
 
-$manager = new CommentAdminManagerClass(DB_DSN, DB_LOGIN, DB_PASS, true);
-/*var_dump($manager);*/
+$moi = new CommentAdminManagerClass(DB_DSN, DB_LOGIN, DB_PASS, true);
 
 
 // on affiche tous les commentaires 
 if (empty($_GET) && empty($_POST)) {
 
-    // date du jour pour le formulaire:
-    $ladate = date("Y-m-d");
-
     // on récupère tous les comment
-    $recup_tous = $manager->recupComment();
+    $recup_tous = $moi->recupComment();
+
+    // on appel la vue pour les afficher
+    include 'Vues/adminVue.php';
 }
 
 
-
-// si l'admin a envoyé le formulaire
-if (isset($_POST['tab'])) {
-    // création de l'instance avec vérification des champs
-    $new_comment = new CommentClass($_POST['tab']);
-
-    // si insertion grâce au manager de la classe qui récupère l'objet nommé CommentClass en paramètre
-    if ($manager->insertComment($new_comment)) {
-        // redirection
+// on teste le $_GET récupérer (clic sur supprimer
+if (isset($_GET['sup']) && ctype_digit($_GET(['sup']))) {
+    $idcomment = (int) $_GET(['sup']);
+    if ($moi->supComment($idcomment)) {
         header("Location: ./");
     }
 }
 
 
-// on appel la vue pour les afficher
-include 'Vues/adminVue.php';
+
 
 

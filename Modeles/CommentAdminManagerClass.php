@@ -11,21 +11,18 @@
  */
 class CommentAdminManagerClass extends CommentManagerClass {
     
-   // contiendra la connexion ?
-  /*  protected $db;
-    
-    public function __construct($dsn,$util,$pass,$erreur=false){
-        // on se connecte en utilisant la méthode statique de ma MaPDO
-        $this->db = MaPDO::getConnection($dsn,$util,$pass,$erreur);
-    }*/
+ // pas besoin de constructeur, connexion héritée
 
     
 
 // on supprime un comment
-   /* public function supComment($idsup) {
-        $query = $this->db->query("DELETE FROM comment WHERE id=$idsup;");
-        return $query->fetch(PDO::FETCH_OBJ);
-    }*/
+   public function supComment($idsup) {
+       // protection en cas d'attaque
+       $idsup = (int)$idsup;
+       
+        return $this->db->exec("DELETE FROM comment WHERE id=$idsup;");
+        
+    }
     
     
    // on récupère le comment à modifer 
