@@ -33,12 +33,44 @@ if (empty($_GET) && empty($_POST)) {
 
 
 // on teste le $_GET récupérer (clic sur supprimer
-if (isset($_GET['sup']) && ctype_digit($_GET(['sup']))) {
-    $idcomment = (int) $_GET(['sup']);
-    if ($moi->supComment($idcomment)) {
+// Si on confirm la suppression 
+// si on a confirmé la suppression
+if (isset($_GET['sup']) && ctype_digit($_GET['sup'])) {
+    $idcomment = (int) $_GET['sup'];
+
+    $moi->supComment($idcomment);
+    header("Location: ./");
+}
+
+// si on a cliquer sur l'icône de modif
+if (isset($_GET['modif']) && ctype_digit($_GET['modif'])) {
+    $idcomment = (int) $_GET['modif'];
+    $affiche = $moi->recupLeComment($idcomment);
+    /* var_dump($affiche); */
+    if ($affiche) {
+        // on appel la vue pour les afficher
+        include 'Vues/modifVue.php';
+    } else {
         header("Location: ./");
     }
 }
+
+
+
+// on a cliqué sur modifier
+if (isset($_GET['modif']) && ctype_digit($_GET['modif']) && isset($_POST['tabUp'])) {
+    $idcomment = (int) $_GET['modif'];
+    $pour_modif = new CommentClass($_POST['tabUp']);
+    /* var_dump($pour_modif); */
+    // update du comment
+    if ($moi->modifComment($pour_modif, $idcomment)) {
+        header("Location: ./");
+    } else {
+        
+    }
+}
+
+
 
 
 
