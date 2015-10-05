@@ -16,8 +16,8 @@ require 'Modeles/CommentManagerClass.php';
 $manager = new CommentManagerClass(DB_DSN, DB_LOGIN, DB_PASS, true);
 
 
-// si il n'y a pas de variables GET ni POST, on est sur l'accueil et non connecté (voir index.php)
-if(empty($_GET)&& empty($_POST)){
+// si il n'y a pas de variable POST, on est sur l'accueil et non connecté (voir index.php)
+if(empty($_POST)){
     
     // date du jour pour le formulaire:
     $ladate = date("Y-m-d");
