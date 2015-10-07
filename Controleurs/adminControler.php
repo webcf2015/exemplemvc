@@ -65,8 +65,6 @@ if (isset($_GET['modif']) && ctype_digit($_GET['modif']) && isset($_POST['tabUp'
     // update du comment
     if ($moi->modifComment($pour_modif, $idcomment)) {
         header("Location: ./");
-    } else {
-        header("Location: ./");
     }
 }
 
