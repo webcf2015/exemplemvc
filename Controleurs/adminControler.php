@@ -57,7 +57,7 @@ if (isset($_GET['modif']) && ctype_digit($_GET['modif'])) {
 
 
 
-// on a cliqué sur modifier
+// on envoi le form de modif
 if (isset($_GET['modif']) && ctype_digit($_GET['modif']) && isset($_POST['tabUp'])) {
     $idcomment = (int) $_GET['modif'];
     $pour_modif = new CommentClass($_POST['tabUp']);
@@ -65,8 +65,6 @@ if (isset($_GET['modif']) && ctype_digit($_GET['modif']) && isset($_POST['tabUp'
     // update du comment
     if ($moi->modifComment($pour_modif, $idcomment)) {
         header("Location: ./");
-    } else {
-        
     }
 }
 
